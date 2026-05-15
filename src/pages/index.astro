@@ -1,0 +1,268 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TopicCard from '../components/TopicCard.astro';
+import { getCollection } from 'astro:content';
+
+const allTopics = await getCollection('topics');
+const featuredTopics = allTopics.filter(topic => topic.data.featured);
+---
+
+<BaseLayout title="Home" description="Explore modern conspiracy theories for fun, discussion, and cultural analysis. A conversation starter for curious minds.">
+  <div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="stamp">CLASSIFIED</div>
+      <h1 class="hero-title">Conspiracy Night</h1>
+      <p class="hero-subtitle">
+        Exploring modern conspiracy theories for fun, discussion, and cultural analysis
+      </p>
+      <p class="hero-description">
+        Welcome to a space for curious minds and interesting conversations. We explore conspiracy theories not to convince you of anything, but to understand why people believe what they do — and to spark thought-provoking discussions over date night.
+      </p>
+      <div class="hero-cta">
+        <a href="/topics" class="button button-primary">Browse All Topics</a>
+        <a href="/about" class="button button-secondary">About This Site</a>
+      </div>
+    </section>
+
+    <!-- Featured Topics -->
+    {featuredTopics.length > 0 && (
+      <section class="featured-section">
+        <h2 class="section-title">Featured Conspiracies</h2>
+        <div class="topic-grid">
+          {featuredTopics.map(topic => (
+            <TopicCard
+              title={topic.data.title}
+              slug={topic.data.slug}
+              summary={topic.data.summary}
+              category={topic.data.category}
+              dangerLevel={topic.data.dangerLevel}
+              absurdityMeter={topic.data.absurdityMeter}
+              rabbitHoleScore={topic.data.rabbitHoleScore}
+            />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+      <h2 class="section-title">How to Use This Site</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-icon">🔍</div>
+          <h3>Pick a Topic</h3>
+          <p>Browse conspiracy theories organized by category: urban planning, health, money, culture, and more.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">📖</div>
+          <h3>Read Both Sides</h3>
+          <p>Each topic presents what believers claim AND skeptical counterarguments. Balance is key.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">💬</div>
+          <h3>Start Conversations</h3>
+          <p>Use our discussion questions to spark interesting debates with your partner or friends.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🧠</div>
+          <h3>Think Critically</h3>
+          <p>Question everything (including us). Verify claims. Consult credible sources.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Understanding Scores -->
+    <section class="scores-section">
+      <h2 class="section-title">Understanding the Scores</h2>
+      <div class="scores-explanation">
+        <div class="score-item">
+          <span class="score-icon">🔥</span>
+          <div>
+            <strong>Danger Level (1-5)</strong>
+            <p>How harmful is believing this theory? From harmless fun to potentially dangerous misinformation.</p>
+          </div>
+        </div>
+        <div class="score-item">
+          <span class="score-icon">🎪</span>
+          <div>
+            <strong>Absurdity Meter (1-5)</strong>
+            <p>How ridiculous is the claim? From somewhat plausible to completely bonkers.</p>
+          </div>
+        </div>
+        <div class="score-item">
+          <span class="score-icon">🐰</span>
+          <div>
+            <strong>Rabbit Hole Score (1-5)</strong>
+            <p>How deep and interconnected is this conspiracy? From simple theories to universe-encompassing mega-conspiracies.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .hero {
+    text-align: center;
+    padding: var(--space-12) 0;
+    position: relative;
+  }
+
+  .stamp {
+    display: inline-block;
+    padding: var(--space-2) var(--space-6);
+    border: 3px solid var(--color-classified);
+    color: var(--color-classified);
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-black);
+    text-transform: uppercase;
+    transform: rotate(-5deg);
+    opacity: 0.8;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-6);
+  }
+
+  .hero-title {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-4);
+    color: var(--color-accent);
+  }
+
+  .hero-subtitle {
+    font-size: var(--text-xl);
+    color: var(--color-text-dim);
+    margin-bottom: var(--space-6);
+    font-family: var(--font-ui);
+  }
+
+  .hero-description {
+    max-width: 700px;
+    margin: 0 auto var(--space-8);
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Featured Section */
+  .featured-section {
+    margin-top: var(--space-16);
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: var(--space-8);
+    color: var(--color-classified);
+  }
+
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-6);
+  }
+
+  /* How It Works */
+  .how-it-works {
+    margin-top: var(--space-16);
+    padding: var(--space-12) 0;
+    background: var(--color-bg-elevated);
+    margin-left: calc(-1 * var(--space-4));
+    margin-right: calc(-1 * var(--space-4));
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .info-card {
+    text-align: center;
+  }
+
+  .info-icon {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .info-card h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-3);
+  }
+
+  .info-card p {
+    font-size: var(--text-sm);
+    color: var(--color-text-dim);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+
+  /* Scores Section */
+  .scores-section {
+    margin-top: var(--space-16);
+  }
+
+  .scores-explanation {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .score-item {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+    padding: var(--space-4);
+    background: var(--color-bg-elevated);
+    border: 2px solid var(--color-border);
+    border-radius: 4px;
+  }
+
+  .score-icon {
+    font-size: var(--text-3xl);
+    flex-shrink: 0;
+  }
+
+  .score-item strong {
+    display: block;
+    margin-bottom: var(--space-2);
+    color: var(--color-text);
+  }
+
+  .score-item p {
+    font-size: var(--text-sm);
+    color: var(--color-text-dim);
+    margin: 0;
+    line-height: var(--leading-normal);
+  }
+
+  /* Responsive */
+  @media (min-width: 768px) {
+    .hero-title {
+      font-size: var(--text-5xl);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-cta {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .button {
+      width: 100%;
+    }
+  }
+</style>

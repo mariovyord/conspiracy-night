@@ -1,0 +1,152 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Exploring modern conspiracy theories for fun, discussion, and cultural analysis." } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} | Conspiracy Night</title>
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <nav class="nav">
+          <a href="/" class="logo">CONSPIRACY NIGHT</a>
+          <div class="nav-links">
+            <a href="/topics">Topics</a>
+            <a href="/about">About</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <p class="footer-disclaimer">
+            <strong>⚠️ Entertainment Notice:</strong> Conspiracy Night explores conspiracy theories for discussion and entertainment. Content should not be taken as factual without verification from credible sources.
+          </p>
+          <p class="footer-credits">
+            Made for fun conversations. Think critically. Question everything (including us).
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  /* Header */
+  header {
+    background: var(--color-bg-elevated);
+    border-bottom: 2px solid var(--color-border);
+    padding: var(--space-4) 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--font-black);
+    color: var(--color-classified);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+
+  .logo:hover {
+    color: var(--color-accent);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: var(--space-6);
+  }
+
+  .nav-links a {
+    font-family: var(--font-ui);
+    font-weight: var(--font-medium);
+    text-transform: uppercase;
+    font-size: var(--text-sm);
+    text-decoration: none;
+    color: var(--color-text);
+    transition: color var(--transition-normal);
+  }
+
+  .nav-links a:hover {
+    color: var(--color-accent);
+  }
+
+  /* Main */
+  main {
+    min-height: calc(100vh - 400px);
+    padding: var(--space-8) 0;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--color-bg-elevated);
+    border-top: 2px solid var(--color-border);
+    padding: var(--space-8) 0;
+    margin-top: var(--space-16);
+  }
+
+  .footer-content {
+    text-align: center;
+  }
+
+  .footer-disclaimer {
+    background: rgba(255, 210, 63, 0.1);
+    border: 2px solid var(--color-warning);
+    border-left-width: 6px;
+    padding: var(--space-4);
+    margin-bottom: var(--space-4);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+  }
+
+  .footer-disclaimer strong {
+    color: var(--color-warning);
+  }
+
+  .footer-credits {
+    font-size: var(--text-sm);
+    color: var(--color-text-dim);
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .nav {
+      flex-direction: column;
+      gap: var(--space-4);
+      text-align: center;
+    }
+
+    .nav-links {
+      justify-content: center;
+    }
+  }
+</style>

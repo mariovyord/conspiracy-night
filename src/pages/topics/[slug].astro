@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ScoreBadge from '../../components/ScoreBadge.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const topics = await getCollection('topics');
+  return topics.map(topic => ({
+    params: { slug: topic.data.slug },
+    props: { topic },
+  }));
+}
+
+const { topic } = Astro.props;
+const { Content } = await render(topic);
+
+const categoryLabels: Record<string, string> = {
+  'urban-planning': 'Urban Planning',
+  'health': 'Health',
+  'money': 'Money',
+  'culture': 'Culture',
+  'media': 'Media',
+  'surveillance': 'Surveillance',
+  'paranoia': 'Paranoia',
+};
+---
+
+<BaseLayout 
+  title={topic.data.title}
+  description={topic.data.summary}
+>
+  <article class="container">
+    <!-- Topic Header -->
+    <header class="topic-header">
+      <div class="topic-meta">
+        <span class="category-badge">{categoryLabels[topic.data.category]}</span>
+      </div>
+      
+      <h1 class="topic-title">{topic.data.title}</h1>
+      
+      <div class="topic-scores">
+        <ScoreBadge label="Danger" score={topic.data.dangerLevel} icon="🔥" />
+        <ScoreBadge label="Absurdity" score={topic.data.absurdityMeter} icon="🎪" />
+        <ScoreBadge label="Rabbit Hole" score={topic.data.rabbitHoleScore} icon="🐰" />
+      </div>
+    </header>
+
+    <!-- Topic Content -->
+    <div class="topic-content">
+      <Content />
+    </div>
+
+    <!-- Back Link -->
+    <footer class="topic-footer">
+      <a href="/topics" class="button button-secondary">← Back to All Topics</a>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  /* Topic Header */
+  .topic-header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+    padding-bottom: var(--space-8);
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .topic-meta {
+    margin-bottom: var(--space-4);
+  }
+
+  .category-badge {
+    display: inline-block;
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    text-transform: uppercase;
+    padding: var(--space-2) var(--space-4);
+    background: rgba(59, 206, 172, 0.2);
+    color: var(--color-classified);
+    border: 1px solid var(--color-classified);
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
+
+  .topic-title {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-6);
+    color: var(--color-accent);
+    line-height: var(--leading-tight);
+  }
+
+  .topic-scores {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Topic Content */
+  .topic-content {
+    max-width: 800px;
+    margin: 0 auto var(--space-12);
+  }
+
+  .topic-content :global(h2) {
+    margin-top: var(--space-12);
+    margin-bottom: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: 2px solid var(--color-border);
+    color: var(--color-classified);
+  }
+
+  .topic-content :global(h2:first-of-type) {
+    margin-top: var(--space-8);
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .topic-content :global(h3) {
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-4);
+  }
+
+  .topic-content :global(p) {
+    margin-bottom: var(--space-6);
+    line-height: var(--leading-relaxed);
+  }
+
+  .topic-content :global(ul),
+  .topic-content :global(ol) {
+    margin-bottom: var(--space-6);
+    padding-left: var(--space-6);
+  }
+
+  .topic-content :global(li) {
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-relaxed);
+  }
+
+  .topic-content :global(strong) {
+    color: var(--color-text);
+    font-weight: var(--font-bold);
+  }
+
+  .topic-content :global(blockquote) {
+    border-left: 4px solid var(--color-accent);
+    padding-left: var(--space-4);
+    margin: var(--space-6) 0;
+    font-style: italic;
+    color: var(--color-text-dim);
+  }
+
+  /* Topic Footer */
+  .topic-footer {
+    text-align: center;
+    padding-top: var(--space-8);
+    border-top: 2px solid var(--color-border);
+  }
+
+  /* Responsive */
+  @media (min-width: 768px) {
+    .topic-title {
+      font-size: var(--text-4xl);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .topic-scores {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>

@@ -1,0 +1,224 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+---
+
+<BaseLayout 
+  title="About" 
+  description="Learn about Conspiracy Night - an entertainment website exploring modern conspiracy theories for fun, discussion, and cultural analysis."
+>
+  <div class="container">
+    <article class="about-content">
+      <header class="page-header">
+        <div class="stamp">CLASSIFIED</div>
+        <h1>About Conspiracy Night</h1>
+      </header>
+
+      <section class="about-section">
+        <h2>What Is This Site?</h2>
+        <p>
+          Conspiracy Night is an entertainment website exploring modern conspiracy theories for fun, discussion, and cultural analysis. This site is designed as a conversation starter for couples and friends, not as a source of factual information.
+        </p>
+        <p>
+          We explore conspiracy theories not to convince you of anything, but to understand why people believe what they do — and to spark thought-provoking discussions over date night, game night, or any time curiosity strikes.
+        </p>
+      </section>
+
+      <section class="about-section">
+        <h2>Our Approach</h2>
+        <p>Every conspiracy theory topic on this site includes:</p>
+        <ul>
+          <li><strong>What Believers Claim</strong> - A fair presentation of the conspiracy theory</li>
+          <li><strong>Why It's Compelling</strong> - The psychological and social appeal</li>
+          <li><strong>The Skeptical Take</strong> - Rational explanations and counterarguments</li>
+          <li><strong>Pop Culture References</strong> - How the theory appears in media and memes</li>
+          <li><strong>Discussion Questions</strong> - Conversation starters for thoughtful debate</li>
+          <li><strong>Appropriate Disclaimers</strong> - Safety notices for sensitive topics</li>
+        </ul>
+        <p>
+          We believe in presenting multiple perspectives, thinking critically, and having fun without causing harm.
+        </p>
+      </section>
+
+      <section class="about-section">
+        <h2>Understanding the Scores</h2>
+        <div class="scores-grid">
+          <div class="score-explanation">
+            <div class="score-icon">🔥</div>
+            <div>
+              <h3>Danger Level (1-5)</h3>
+              <p>How harmful is believing this theory? Ranges from harmless fun (1) to potentially dangerous misinformation (5).</p>
+            </div>
+          </div>
+          <div class="score-explanation">
+            <div class="score-icon">🎪</div>
+            <div>
+              <h3>Absurdity Meter (1-5)</h3>
+              <p>How ridiculous is the claim? From somewhat plausible (1) to completely bonkers (5).</p>
+            </div>
+          </div>
+          <div class="score-explanation">
+            <div class="score-icon">🐰</div>
+            <div>
+              <h3>Rabbit Hole Score (1-5)</h3>
+              <p>How deep and interconnected is this theory? From simple standalone idea (1) to universe-encompassing mega-conspiracy (5).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-section">
+        <h2>Content Safety</h2>
+        <p>
+          We take content safety seriously. All topics with potential for harm include appropriate disclaimers. Health-related topics always emphasize consulting medical professionals. Political topics are presented for cultural analysis, not advocacy.
+        </p>
+        <p>
+          This is NOT a platform for promoting dangerous misinformation. When discussing health, politics, or real-world claims, we use careful framing and multiple perspectives.
+        </p>
+      </section>
+
+      <Disclaimer type="general">
+        <p style="margin-top: var(--space-4); margin-bottom: 0;">
+          <strong>Important:</strong> Content is presented for entertainment purposes only. Always verify information through credible sources. Consult appropriate professionals for medical, legal, or financial advice.
+        </p>
+        <p style="margin-top: var(--space-3); margin-bottom: 0;">
+          <strong>For accurate information:</strong>
+        </p>
+        <ul style="margin-top: var(--space-2); margin-bottom: 0; list-style: none; padding-left: 0;">
+          <li>Health: CDC, WHO, your healthcare provider</li>
+          <li>Politics: Official government sources, multiple news outlets</li>
+          <li>Finance: Licensed financial advisors, government regulators</li>
+        </ul>
+      </Disclaimer>
+
+      <section class="about-section">
+        <h2>Who Made This?</h2>
+        <p>
+          This site was created as a fun project for exploring conspiracy theories with a partner. It's designed to spark interesting conversations, encourage critical thinking, and provide entertainment — never to spread harmful misinformation or convince anyone of anything.
+        </p>
+        <p>
+          If you have concerns about content safety or accuracy, please think critically, verify claims independently, and consult credible sources.
+        </p>
+      </section>
+
+      <section class="about-section">
+        <h2>Think Critically</h2>
+        <p>
+          We encourage you to:
+        </p>
+        <ul>
+          <li>Question everything (including us)</li>
+          <li>Verify claims through multiple credible sources</li>
+          <li>Consider psychological and social factors in belief</li>
+          <li>Distinguish between entertaining speculation and factual information</li>
+          <li>Be curious without being gullible</li>
+          <li>Have fun while thinking critically</li>
+        </ul>
+      </section>
+
+      <footer class="about-footer">
+        <a href="/topics" class="button button-primary">Explore Topics</a>
+      </footer>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .about-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+  }
+
+  .stamp {
+    display: inline-block;
+    padding: var(--space-2) var(--space-6);
+    border: 3px solid var(--color-classified);
+    color: var(--color-classified);
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-black);
+    text-transform: uppercase;
+    transform: rotate(-5deg);
+    opacity: 0.8;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-6);
+  }
+
+  .page-header h1 {
+    color: var(--color-accent);
+    margin-bottom: 0;
+  }
+
+  .about-section {
+    margin-bottom: var(--space-12);
+  }
+
+  .about-section h2 {
+    color: var(--color-classified);
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-4);
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .about-section p {
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-4);
+  }
+
+  .about-section ul {
+    margin-left: var(--space-6);
+    margin-bottom: var(--space-4);
+  }
+
+  .about-section li {
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-relaxed);
+  }
+
+  .scores-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    margin-top: var(--space-6);
+  }
+
+  .score-explanation {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+    padding: var(--space-4);
+    background: var(--color-bg-elevated);
+    border: 2px solid var(--color-border);
+    border-radius: 4px;
+  }
+
+  .score-icon {
+    font-size: var(--text-3xl);
+    flex-shrink: 0;
+  }
+
+  .score-explanation h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-2);
+    color: var(--color-text);
+  }
+
+  .score-explanation p {
+    font-size: var(--text-sm);
+    color: var(--color-text-dim);
+    margin: 0;
+    line-height: var(--leading-normal);
+  }
+
+  .about-footer {
+    text-align: center;
+    padding-top: var(--space-8);
+    margin-top: var(--space-12);
+    border-top: 2px solid var(--color-border);
+  }
+</style>

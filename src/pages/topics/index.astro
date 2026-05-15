@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TopicCard from '../../components/TopicCard.astro';
+import { getCollection } from 'astro:content';
+
+const allTopics = await getCollection('topics');
+
+// Sort topics by title
+const sortedTopics = allTopics.sort((a, b) => 
+  a.data.title.localeCompare(b.data.title)
+);
+---
+
+<BaseLayout 
+  title="All Topics" 
+  description="Browse all conspiracy theory topics on Conspiracy Night. From urban planning to satanic panic, explore modern conspiracy theories with balanced perspectives."
+>
+  <div class="container">
+    <header class="page-header">
+      <h1>All Conspiracy Topics</h1>
+      <p class="page-description">
+        Explore {allTopics.length} conspiracy theories organized for your curiosity. Each topic presents what believers claim alongside skeptical explanations.
+      </p>
+    </header>
+
+    <section class="topics-section">
+      <div class="topic-grid">
+        {sortedTopics.map(topic => (
+          <TopicCard
+            title={topic.data.title}
+            slug={topic.data.slug}
+            summary={topic.data.summary}
+            category={topic.data.category}
+            dangerLevel={topic.data.dangerLevel}
+            absurdityMeter={topic.data.absurdityMeter}
+            rabbitHoleScore={topic.data.rabbitHoleScore}
+          />
+        ))}
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+  }
+
+  .page-header h1 {
+    margin-bottom: var(--space-4);
+    color: var(--color-classified);
+  }
+
+  .page-description {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: var(--text-lg);
+    color: var(--color-text-dim);
+    line-height: var(--leading-relaxed);
+  }
+
+  .topics-section {
+    margin-bottom: var(--space-16);
+  }
+
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 640px) {
+    .topic-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

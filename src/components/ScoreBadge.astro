@@ -1,0 +1,68 @@
+---
+interface Props {
+  label: string;
+  score: number;
+  maxScore?: number;
+  icon?: string;
+}
+
+const { label, score, maxScore = 5, icon } = Astro.props;
+
+// Determine color based on score
+let colorClass = 'low';
+if (score >= 4) {
+  colorClass = 'high';
+} else if (score >= 3) {
+  colorClass = 'medium';
+}
+---
+
+<span class={`score-badge score-${colorClass}`} title={`${label}: ${score}/${maxScore}`}>
+  {icon && <span class="badge-icon">{icon}</span>}
+  <span class="badge-label">{label}</span>
+  <span class="badge-score">{score}</span>
+</span>
+
+<style>
+  .score-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border-radius: 12px;
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    font-family: var(--font-ui);
+    border: 1px solid;
+  }
+
+  .score-low {
+    background: rgba(6, 214, 160, 0.2);
+    color: var(--color-success);
+    border-color: var(--color-success);
+  }
+
+  .score-medium {
+    background: rgba(255, 210, 63, 0.2);
+    color: var(--color-warning);
+    border-color: var(--color-warning);
+  }
+
+  .score-high {
+    background: rgba(239, 71, 111, 0.2);
+    color: var(--color-danger);
+    border-color: var(--color-danger);
+  }
+
+  .badge-icon {
+    font-size: var(--text-base);
+  }
+
+  .badge-label {
+    font-weight: var(--font-normal);
+  }
+
+  .badge-score {
+    font-weight: var(--font-bold);
+  }
+</style>
